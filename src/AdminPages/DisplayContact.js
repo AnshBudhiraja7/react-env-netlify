@@ -8,7 +8,6 @@ const DisplayContact = () => {
    const {name,value}= event.target
     setobj({...obj,[name]:value})
   }
-  console.log(process.env.REACT_APP_FETCH_API);
   const Show=async()=>{
    const response= await fetch(process.env.REACT_APP_FETCH_API)
     if(response.status===201)
