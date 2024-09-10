@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react'
-import AdminHeader from '../AdminComponents/AdminHeader'
 import "../Style.css"
 const DisplayContact = () => {
   const[data,setdata]=useState("")
@@ -9,9 +8,10 @@ const DisplayContact = () => {
    const {name,value}= event.target
     setobj({...obj,[name]:value})
   }
+  console.log(process.env.REACT_APP_FETCH_API);
   const Show=async()=>{
    const response= await fetch(process.env.REACT_APP_FETCH_API)
-    if(response.status==201)
+    if(response.status===201)
     {
      const result= await response.json()
      setdata(result.result)
@@ -31,7 +31,7 @@ const DisplayContact = () => {
     }    
     })
     const result= await response.json()
-    if(response.status==201)
+    if(response.status===201)
     {
       console.log(result.result);
       alert(result.Message)
@@ -52,7 +52,7 @@ const DisplayContact = () => {
       }    
       })
       const result= await response.json()
-      if(response.status==201)
+      if(response.status===201)
       {
         console.log(result.result);
         alert(result.Message)
@@ -64,8 +64,8 @@ const DisplayContact = () => {
       }
   }
   const Edit=async(id)=>{
-    const myobject= data.filter(object=>object._id==id)
-    if(myobject.length!=0)
+    const myobject= data.filter(object=>object._id===id)
+    if(myobject.length!==0)
     {
      const{Name,Phone}=myobject[0]
      setobjectid(id)
@@ -83,7 +83,7 @@ const DisplayContact = () => {
         }    
         })
         const result= await response.json()
-        if(response.status==201)
+        if(response.status===201)
         {
           console.log(result.result);
           alert(result.Message)
@@ -103,7 +103,6 @@ const DisplayContact = () => {
   }
   return (
     <div>
-        {/* <AdminHeader/> */}
         <div className="blocks">
           <div className='boxes'>
           <form>
@@ -132,7 +131,7 @@ const DisplayContact = () => {
                   <td>{index+1}</td>
                   <td>{object?.Name}</td>
                   <td>{object?.Phone}</td>
-                  <td><button onClick={()=>Delete(object._id)}>Delete</button>{objectid==object._id?<button onClick={Update}>Update</button>:<button onClick={()=>Edit(object._id)}>Edit</button>}</td>
+                  <td><button onClick={()=>Delete(object._id)}>Delete</button>{objectid===object._id?<button onClick={Update}>Update</button>:<button onClick={()=>Edit(object._id)}>Edit</button>}</td>
                 </tr>
               )
             }):<tr style={{textAlign:"center"}}><td colSpan={4}>No Record Found</td></tr>}
